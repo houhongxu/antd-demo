@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "antd/dist/antd.css";
+import { Button, Form, Input } from "antd";
+import React from "react";
+import { EditableTable } from "./EditableTable/EditableTable";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IAdmin {
+  name: string;
+  phone: string;
+  job: string;
 }
+
+interface IForm {
+  address: string;
+  admins: IAdmin[];
+}
+
+const App: React.FC = () => {
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  return (
+    <Form
+      name="basic"
+      initialValues={
+        { address: "", admins: [{ name: "1", phone: "1", job: "1" }] } as IForm
+      }
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+    >
+      <Form.Item
+        label="地址"
+        name="address"
+        rules={[{ required: true, message: "地址!" }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="联系人"
+        name="admins"
+        rules={[{ required: true, message: "联系人!" }]}
+      >
+        <EditableTable></EditableTable>
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};
 
 export default App;
