@@ -1,7 +1,7 @@
 import { Form, Input, Button, Table } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
-export const EditableTable = ({}: { value?: any; onChange?: any }) => {
+export const EditableTable = () => {
   const getColumns = (remove: any) => [
     {
       title: "姓名",
